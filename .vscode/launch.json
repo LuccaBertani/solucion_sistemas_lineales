@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Ejecutar programa",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/programa.exe",
+            "cwd": "${workspaceFolder}",
+            "args": [],
+            "stopAtEntry": false,
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "preLaunchTask": "Compilar C++"
+        }
+    ]
+}
