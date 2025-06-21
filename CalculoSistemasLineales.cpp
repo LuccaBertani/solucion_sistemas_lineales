@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdio>
 #include <list>
+#include <cstring>
 
 using namespace std;
 
@@ -18,6 +19,37 @@ cin >> rtaSist;
 
 cout << "Elegir metodo de resolucion:\n 1_Jacobi\n 2_Gauss-Seidel\n";
 cin >> rtaMetodo;
+
+string rtaVector; 
+
+cout << "Quiere configurar un vector inicial? (si/no)\n";
+cin >> rtaVector;
+
+list<float> incognitasAnteriores;
+
+if(rtaVector == "si"){
+for(int l = 0; l<rtaSist ; l++){
+    float coeficienteVectorInicial;
+    cout << "Ingrese el " << l << "º coeficiente\n";
+    cin >> coeficienteVectorInicial;
+    incognitasAnteriores.push_back(coeficienteVectorInicial);
+}
+}else{
+    list <float> incognitasAnteriores(rtaSist,0);
+}
+
+string rtaIteraciones;
+
+cout << "Quiere setear cantidad de iteraciones? (si/no)\n";
+cin >> rtaIteraciones;
+
+int iteracion = 0;
+bool iteracionSeteada = false;
+if(rtaIteraciones == "si"){
+iteracionSeteada = true;
+cout << "Ingrese la cantidad de iteraciones deseada:\n";
+cin >> iteracion;
+}
 
 cout << "Teniendo en cuenta el formato ax + by + cz ... +zr = k" << endl;
 
@@ -45,11 +77,9 @@ coeficientes.push_back(valor);
 ecuacionesConCoeficientes.push_back(coeficientes);
 }
 
-int iteracion = 0;
-
 if(rtaMetodo == 1){
 
-list <float> incognitasAnteriores(rtaSist,0);
+
 list<float> incognitasActuales;
 
 while (iteracion != -1){
@@ -71,13 +101,20 @@ for (const list<float>& ecuacion : ecuacionesConCoeficientes) {
     }
     printf(")\n");
     incognitasActuales.clear();
+    if(!iteracionSeteada){
     printf("Siguiente iteracion? Si = 1, No = -1.\n");
     scanf("%d",&iteracion);
+    }
+    else{
+        iteracion --;
+        if(iteracion == 0){
+            iteracion = -1;
+        }
+    }
 }
 
 } else if(rtaMetodo == 2){
 
-list <float> incognitasAnteriores(rtaSist,0);
 list<float> incognitasActuales;
 
 while (iteracion != -1){
@@ -100,13 +137,21 @@ for (const list<float>& ecuacion : ecuacionesConCoeficientes) {
     }
     printf(")\n");
     incognitasActuales.clear();
+    if(!iteracionSeteada){
     printf("Siguiente iteracion? Si = 1, No = -1.\n");
     scanf("%d",&iteracion);
+    }else{
+        iteracion --;
+        if(iteracion == 0){
+            iteracion = -1;
+        }
+    }
 }
 
     
 }
-
+cin.ignore();
+cin.get();
 }
 
 float calculadoraCoeficientesJacobi(const list<float>& coeficientes, const list<float>& valores_anteriores, int posicionIncognita) {
